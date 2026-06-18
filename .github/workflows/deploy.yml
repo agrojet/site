@@ -1,0 +1,43 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    name: 🚢 Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Lint
+        run: pnpm lint
+
+      - name: Build
+        run: pnpm build
+
+      - name: Push To Gitlab
+        run: |
+          echo Starting to push repo to gitlab
+          git remote set-url origin "https://yashpokar:${{ secrets.GITLAB_TOKEN }}@gitlab.com/yashpokar/agrojet-site-mirror.git"
+          git push origin master -f
