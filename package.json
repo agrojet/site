@@ -16,6 +16,9 @@
   "lint-staged": {
     "*.{ts,tsx}": "eslint --fix"
   },
+  "pnpm": {
+    "onlyBuiltDependencies": ["@swc/core", "esbuild"]
+  },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
     "@radix-ui/react-accordion": "^1.2.11",
