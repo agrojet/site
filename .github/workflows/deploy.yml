@@ -41,4 +41,4 @@ jobs:
         run: |
           echo Starting to push repo to gitlab
           git remote set-url origin "https://yashpokar:${{ secrets.GITLAB_TOKEN }}@gitlab.com/yashpokar/agrojet-site-mirror.git"
-          git push origin master -f
+          git push origin master
